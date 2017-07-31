@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,9 +24,11 @@ namespace Timer
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private double getDoubleValueFromTextBox(TextBox textbox)
@@ -43,15 +47,17 @@ namespace Timer
             return RandomGenerator.generateRandomBeetwenTwoValues(firstValue, secondValue);
         }
 
+
+
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(getRandomTimeBeetwenTwoValues());
             timer.Tick += Timer_Tick;
             timer.Start();
-           
 
-            }
+
+        }
 
 
 
@@ -59,7 +65,13 @@ namespace Timer
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            MessageBox.Show("Jupi, działa!");
+
+
+            string path = @"D:\GitHub\Projekty C#\Timer\Timer\Resources\bomb-falling-and-exploding-02.wav";
+            SoundPlayer soundPlayer = new SoundPlayer(path);
+            soundPlayer.Load();
+            soundPlayer.Play();
+            MessageBox.Show("Jupi, działa");
             DispatcherTimer timer = (DispatcherTimer)sender;
             timer.Stop();
         }
